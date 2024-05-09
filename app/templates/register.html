@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <h1>Register</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('main.auth.register') }}">
+        {{ form.hidden_tag() }}
+        {{ form.username.label }} {{ form.username(size=20) }}<br>
+        {{ form.password.label }} {{ form.password(size=20) }}<br>
+        {{ form.confirm_password.label }} {{ form.confirm_password(size=20) }}<br>
+        {{ form.role.label }}
+        <div>
+            {% for choice in form.role %}
+                <div>
+                    {{ choice.label }} {{ choice() }}
+                </div>
+            {% endfor %}
+        </div>
+        {{ form.submit() }}
+    </form>
+</body>
+</html>
